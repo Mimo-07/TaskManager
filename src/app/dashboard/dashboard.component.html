@@ -28,7 +28,7 @@
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                    TOTAL COST OF ALL PROJECTS
-                    <span class="badge badge-secondary badge-pill" style="font-size: 13px;">$ {{TotalCostOfAllProjects}}k</span>
+                    <span class="badge badge-secondary badge-pill" style="font-size: 13px;">{{TotalCostOfAllProjects | currency:"USD"}}k</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     PENDING TASKS
@@ -40,10 +40,14 @@
                  </li>
             </ul>
         </div>
-        <div class="col-12 text-center pt-2 pb-2" style="font-family: 'Arial Narrow'">CLIENTS</div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">1</li>
-            </ul>
+        <div class="col-12 text-center pt-2 pb-2" style="font-family: 'Arial Narrow'">
+            CLIENTS
+        </div>
+        <div class="col-12">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" *ngFor="let client of Clients">{{client | slice:0:10}}</li>
+                </ul>
+        </div>
         </div>
     </div>
     <div class="col-lg-6">
@@ -56,10 +60,7 @@
                                 Project A
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Project A</a>
-                                <a class="dropdown-item" href="#">Project B</a>
-                                <a class="dropdown-item" href="#">Project C</a>
-                                <a class="dropdown-item" href="#">Project D</a>
+                                <a *ngFor="let project of Projects" onclick="return false" class="dropdown-item" href="#">{{project}}</a>
                             </div>
                         </div>
                     </div>
@@ -69,10 +70,7 @@
                                 2019
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">2019</a>
-                                <a class="dropdown-item" href="#">2018</a>
-                                <a class="dropdown-item" href="#">2017</a>
-                                <a class="dropdown-item" href="#">2016</a>
+                                <a *ngFor="let year of Years" class="dropdown-item" href="#">{{year}}</a>
                             </div>
                         </div>
                     </div>
@@ -86,15 +84,15 @@
                 <table class="table table-borderless">
                     <tr>
                         <td>Project Cost</td>
-                        <td>$ {{ProjectCost}}</td>
+                        <td>{{ProjectCost | currency:"USD"}}</td>
                     </tr>
                     <tr>
                         <td>Current Expenditure</td>
-                        <td>$ {{CurrentExpenditure}}</td>
+                        <td>{{CurrentExpenditure | currency:"USD"}}</td>
                     </tr>
                     <tr>
                         <td>Available Funds</td>
-                        <td>$ {{AvailableFunds}}</td>
+                        <td>{{AvailableFunds | currency:"USD"}}</td>
                     </tr>
                 </table>
             </div>
@@ -108,25 +106,10 @@
                         <th>Team Members</th>
                         <th>Temporarily Unavailable Members</th>
                     </tr>
-                    <tr>
-                        <td><b>East</b></td>
-                        <td>20</td>
-                        <td>4</td>
-                    </tr>
-                    <tr>
-                        <td><b>South</b></td>
-                        <td>15</td>
-                        <td>8</td>
-                    </tr>
-                    <tr>
-                        <td><b>West</b></td>
-                        <td>17</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td><b>North</b></td>
-                        <td>15</td>
-                        <td>6</td>
+                    <tr *ngFor="let details of TeamMembersSummary">
+                        <td><b>{{details.Region}}</b></td>
+                        <td>{{details.TeamMembersCount}}</td>
+                        <td>{{details.TemporarilyUnavailableMembers}}</td>
                     </tr>
                 </table>
             </div>
@@ -139,151 +122,44 @@
             </div>
             <div class="col-lg-12 pt-2">
                 <div class="accordion" id="accordion1">
-                    <div class="card">
+                    <div *ngFor="let teamMember of TeamMembers;let i=index" class="card">
                         <div class="card-header bg-secondary" id="card1">
                             <h2 class="mb-0">
-                                <button class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#cardbody1">East</button>
+                                <button class="btn btn-link text-white" type="button" data-toggle="collapse" [attr.data-target]="'#cardbody'+i">{{teamMember.Region}}</button>
                             </h2>
                         </div>
-                        <div id="cardbody1" class="collapse show" data-parent="#accordion1">
+                        <div [attr.id]="'cardbody'+i" [ngClass]="(teamMember.Region == 'East')? 'show collapse' : 'collapse'" data-parent="#accordion1">
                             <div class="card-body">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Name</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Ford</td>
-                                            <td><i class="fa fa-phone"></i> Available</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Miller</td>
-                                            <td><i class="fa fa-phone"></i> Available</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>James</td>
-                                            <td><i class="fa fa-user-times"></i> Busy</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header bg-secondary" id="card2">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#cardbody2">South</button>
-                            </h2>
-                        </div>
-                        <div id="cardbody2" class="collapse" data-parent="#accordion1">
-                            <div class="card-body">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Name</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Ford</td>
-                                            <td><i class="fa fa-phone"></i> Available</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Miller</td>
-                                            <td><i class="fa fa-phone"></i> Available</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>James</td>
-                                            <td><i class="fa fa-user-times"></i> Busy</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header bg-secondary" id="card2">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#cardbody3">West</button>
-                            </h2>
-                        </div>
-                        <div id="cardbody3" class="collapse" data-parent="#accordion1">
-                            <div class="card-body">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Name</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Ford</td>
-                                            <td><i class="fa fa-phone"></i> Available</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Miller</td>
-                                            <td><i class="fa fa-phone"></i> Available</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>James</td>
-                                            <td><i class="fa fa-user-times"></i> Busy</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header bg-secondary" id="card2">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#cardbody4">North</button>
-                            </h2>
-                        </div>
-                        <div id="cardbody4" class="collapse" data-parent="#accordion1">
-                            <div class="card-body">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Name</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Ford</td>
-                                            <td><i class="fa fa-phone"></i> Available</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Miller</td>
-                                            <td><i class="fa fa-phone"></i> Available</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>James</td>
-                                            <td><i class="fa fa-user-times"></i> Busy</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div *ngIf="i==0; then firstTemplate;else secondTemplate">
+                                </div>
+                                <ng-template #firstTemplate>
+                                    <div class="card" *ngFor="let member of teamMember.Members">
+                                        <div class="card-header bg-primary text-white">
+                                            #{{member.Id}} {{member.Name}}
+                                        </div>
+                                        <div class="card body">
+                                            {{member.Status}}
+                                        </div>
+                                    </div> 
+                                </ng-template>
+                                <ng-template #secondTemplate>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Name</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let member of teamMember.Members">
+                                                <td>{{member.Id}}</td>
+                                                <td [style.color]="(member.Status == 'Busy')? 'red' : ''">{{member.Name}}</td>
+                                                <td>{{member.Status}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </ng-template>
                             </div>
                         </div>
                     </div>
