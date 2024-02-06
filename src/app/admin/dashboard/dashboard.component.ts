@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DashboardService } from '../../dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +21,11 @@ export class DashboardComponent {
   Years:number[] = [];
   TeamMembersSummary:any = [];
   TeamMembers:any = [];
+
+  constructor(private dashBoardService: DashboardService){
+
+  }
+
   ngOnInit()
   {
     this.Designation = "Team Leader";
@@ -37,37 +43,11 @@ export class DashboardComponent {
     this.Projects = [
       "Project A","Project B","Project C","Project D"
     ];
-    this.TeamMembersSummary = [
-      {Region:"East", TeamMembersCount:20, TemporarilyUnavailableMembers:4},
-      {Region:"South", TeamMembersCount:15, TemporarilyUnavailableMembers:8},
-      {Region:"West", TeamMembersCount:17, TemporarilyUnavailableMembers:1},
-      {Region:"North", TeamMembersCount:15, TemporarilyUnavailableMembers:6}
-    ];
+    this.TeamMembersSummary = this.dashBoardService.getTeamMemberSummary();
     for(var i=2019;i>=2010;i--)
     {
       this.Years.push(i);
     }
-    this.TeamMembers = [ 
-      {Region:"East", Members: [
-        {Id:1,Name:"Ford",Status:"Available"},
-        {Id:2,Name:"Miller",Status:"Busy"},
-        {Id:3,Name:"Jones",Status:"Available"},
-        {Id:4,Name:"James",Status:"Busy"}]},
-      {Region:"West", Members: [
-        {Id:1,Name:"Ford",Status:"Available"},
-        {Id:2,Name:"Miller",Status:"Busy"},
-        {Id:3,Name:"Jones",Status:"Available"},
-        {Id:4,Name:"James",Status:"Busy"}]},
-      {Region:"South", Members: [
-        {Id:1,Name:"Ford",Status:"Available"},
-        {Id:2,Name:"Miller",Status:"Busy"},
-        {Id:3,Name:"Jones",Status:"Available"},
-        {Id:4,Name:"James",Status:"Busy"}]},
-      {Region:"North", Members: [
-        {Id:1,Name:"Ford",Status:"Available"},
-        {Id:2,Name:"Miller",Status:"Busy"},
-        {Id:3,Name:"Jones",Status:"Available"},
-        {Id:4,Name:"James",Status:"Busy"}]}
-    ];
+    this.TeamMembers = this.dashBoardService.getTeamMembers();
   }
 }
