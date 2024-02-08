@@ -25,7 +25,7 @@ export class ProjectsComponent {
     );
   }
 
-  onSaveClick(){
+  OnSaveClick(){
     this.projectService.insertProject(this.project).subscribe({
       next: (res) => {
         this.projects.push(res);
@@ -42,7 +42,7 @@ export class ProjectsComponent {
   }
 
 
-  onEditClick(event:any, index:number){
+  OnEditClick(event:any, index:number){
     this.editProject.projectId = this.projects[index].projectId;
     this.editProject.dateOfStart = this.projects[index].dateOfStart;
     this.editProject.projectName = this.projects[index].projectName;
@@ -50,7 +50,7 @@ export class ProjectsComponent {
     this.editIndex = index;
   }
 
-  onUpdateClick(){
+  OnUpdateClick(){
     this.projectService.updateProject(this.editProject).subscribe({
       next:(res) =>{
         this.projects[this.editIndex] = res;
@@ -66,7 +66,7 @@ export class ProjectsComponent {
     )
   }
 
-  onSearchClick()
+  OnSearchClick()
   {
     this.projectService.searchProjects(this.searchBy,this.searchText).subscribe({
       next:(response:Project[])=>

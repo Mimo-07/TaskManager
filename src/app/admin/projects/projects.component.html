@@ -17,7 +17,7 @@
             <div class="col-9"> 
                 <div class="input-group">
                     <input type="text" class="form-control" id="txtSearch" name="searchText" [(ngModel)]="searchText">
-                    <div class="input-group-append"  (click)="onSearchClick()">
+                    <div class="input-group-append"  (click)="OnSearchClick()">
                         <span class="input-group-text"><i class="fa fa-search"></i></span>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                     <td>{{project.dateOfStart}}</td>
                     <td>{{project.teamSize}}</td>
                     <td>
-                        <button class="btn btn-info" (click)="onEditClick($event,i)" data-toggle="modal" data-target="#editModal">Edit</button>
+                        <button class="btn btn-info" (click)="OnEditClick($event,i)" data-toggle="modal" data-target="#editModal">Edit</button>
                     </td>
                 </tr>
             </tbody>
@@ -82,7 +82,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-success" data-dismiss="modal" (click)="onSaveClick()">Save</button>
+                <button class="btn btn-success" data-dismiss="modal" (click)="OnSaveClick()">Save</button>
                 <button class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -126,7 +126,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-success" data-dismiss="modal" (click)="onUpdateClick()">Save</button>
+                <button class="btn btn-success" data-dismiss="modal" (click)="OnUpdateClick()">Save</button>
                 <button class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
         </div>
