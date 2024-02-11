@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ProjectService } from '../../project.service';
 import { Project } from '../../project';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projects',
@@ -14,15 +15,20 @@ export class ProjectsComponent {
   editProject: Project = new Project();
   searchBy: string = "projectName";
   searchText:string = "";
-  constructor(private projectService:ProjectService){
+  constructor(private projectService:ProjectService, private router:Router){
   }
 
   ngOnInit(){
     this.projectService.getAllProjects().subscribe(
-      (response) => {
+      {
+      next:(response) => {
         this.projects = response;
+      },
+      error: (err:any) => {
+        this.router.navigateByUrl("login");
+        alert("Invalid userId or password");
       }
-    );
+    });
   }
 
   OnSaveClick(){

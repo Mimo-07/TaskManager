@@ -19,6 +19,7 @@ export class LoginService {
       if(user!=null)
       {
         this.currentUserName = user.userName;
+        sessionStorage.setItem("currentUser", JSON.stringify(user));
       }
       return user;
     }));
@@ -27,5 +28,6 @@ export class LoginService {
   public Logout()
   {
     this.currentUserName = null;
+    sessionStorage.removeItem("currentUser");
   }
 }
