@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Project } from './project';
+import { Project } from '../Models/project';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,6 @@ export class ProjectService {
     var headers = new HttpHeaders();
     
     var currentUser = JSON.parse(sessionStorage.getItem("currentUser") || '{}');
-    console.log(currentUser);
     
     headers = headers.set("Authorization","Bearer "+currentUser.token);
     return this.httpClient.get<Project[]>("/api/taskmanager/projects",{headers: headers,responseType:'json'}).pipe(map((data) => {
