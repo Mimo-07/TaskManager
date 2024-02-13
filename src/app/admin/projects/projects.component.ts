@@ -41,8 +41,6 @@ export class ProjectsComponent {
         this.project.teamSize = 0;
       },
       error:(err) => {
-        alert("error");
-        console.log(err);
       }
     });
   }
@@ -66,7 +64,6 @@ export class ProjectsComponent {
         this.editProject.teamSize = 0;
       },
       error:(err) => {
-        console.log(err);
       } 
     }
     )
@@ -81,7 +78,6 @@ export class ProjectsComponent {
       },
       error:(err)=>
       {
-        console.log(err);
       }
     });
   }
