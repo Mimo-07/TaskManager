@@ -13,12 +13,7 @@ export class ProjectService {
   }
 
   getAllProjects():Observable<Project[]>{
-    var headers = new HttpHeaders();
-    
-    var currentUser = JSON.parse(sessionStorage.getItem("currentUser") || '{}');
-    
-    headers = headers.set("Authorization","Bearer "+currentUser.token);
-    return this.httpClient.get<Project[]>("/api/taskmanager/projects",{headers: headers,responseType:'json'}).pipe(map((data) => {
+    return this.httpClient.get<Project[]>("/api/taskmanager/projects",{responseType:'json'}).pipe(map((data) => {
       for(let i=0;i<data.length;i++)
       {
         data[i].teamSize *= 100;
