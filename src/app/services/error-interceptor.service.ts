@@ -26,14 +26,13 @@ export class ErrorInterceptorService implements HttpInterceptor{
           {
             if(error.status == 401) 
             {
-              console.log(error);
               alert("401 Unauthorized");
             }
             if(error.status != 401)
             {
               alert("error interceptor working");
-              console.log(error);
             }
+            console.error(error);
           }
         }
       }

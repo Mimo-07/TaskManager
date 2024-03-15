@@ -25,8 +25,7 @@ export class ProjectsComponent {
         this.projects = response;
       },
       error: (err:any) => {
-        this.router.navigateByUrl("login");
-        alert("Invalid userId or password");
+        this.router.navigateByUrl("/login");
       }
     });
   }
